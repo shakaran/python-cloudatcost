@@ -1,10 +1,13 @@
 # Python API Wrapper for cloudatcost.com
+BASE_URL = "https://panel.cloudatcost.com/api/"
+API_VERSION = "v1"
 
-LIST_SERVERS_URL = "https://panel.cloudatcost.com/api/v1/listservers.php"
-LIST_TEMPLATES_URL = "https://panel.cloudatcost.com/api/v1/listtemplates.php"
-LIST_TASKS_URL = "https://panel.cloudatcost.com/api/v1/listtasks.php"
-POWER_OPERATIONS_URL = "https://panel.cloudatcost.com/api/v1/powerop.php"
-CONSOLE_URL = "https://panel.cloudatcost.com/api/v1/console.php"
+# Endpoints
+LIST_SERVERS_URL = "/listservers.php"
+LIST_TEMPLATES_URL = "/listtemplates.php"
+LIST_TASKS_URL = "/listtasks.php"
+POWER_OPERATIONS_URL = "/powerop.php"
+CONSOLE_URL = "/console.php"
 
 import requests
 
@@ -15,7 +18,7 @@ class CACPy:
 		self.email = email
 		self.api_key = api_key
 
-	def _make_request(self,url,options=dict(),type="GET"):
+	def _make_request(self,endpoint,options=dict(),type="GET"):
 		data = {
 			'key':		self.api_key,
 			'login':	self.email
@@ -24,6 +27,7 @@ class CACPy:
 		for key in options:
 			data[key] = options[key]
 
+		url = BASE_URL + API_VERSION + endpoint
 		print "URL: " + str(url)
 		print "Data: " 
 		print data
